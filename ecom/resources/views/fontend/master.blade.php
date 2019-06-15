@@ -23,17 +23,53 @@
                 <div class="bg-profile-li" style="background-image: url(img/bg-profile.jpg);"></div></li>
 
             <li><a class="waves-effect waves-blue" href="{{ url('/') }}"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="{{ route('account.create') }}"><i class="fas fa-heart"></i>Deposit Money</a></li>
-            <li><a href="{{ route('account.index') }}"><i class="fas fa-camera-retro"></i>Transaction History</a></li>
-            <li><a href="{{ route('profile.create') }}"><i class="fas fa-cog"></i>Profile Edit</a></li>
-            <li><a href="{{ route('checkout.index') }}"><i class="fas fa-cog"></i>Orders</a></li>
+            <li><a href="{{ route('fontend-categories.index') }}"><i class="fas fa-envelope"></i>Products</a></li>            <li>
+            <li><a href="{{ route('profile.create') }}"><i class="fas fa-user-circle"></i>Profile Edit</a></li>
+
+
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="fas fa-plus"></i>Wallet <span><i class="fas fa-caret-down"></i></span>
+                        </div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{ route('account.create') }}"><i class="fas fa-angle-right"></i>Deposit Money</a></li>
+                                <li><a href="{{ route('fontend-withdraw.create') }}"><i class="fas fa-angle-right"></i>Withdraw Money</a></li>
+                                <li><a href="{{ route('fontend-transfer.create') }}"><i class="fas fa-angle-right"></i>Transfer Money</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="fas fa-plus"></i>Wallet History<span><i class="fas fa-caret-down"></i></span>
+                        </div>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="{{ route('account.index') }}"><i class="fas fa-angle-right"></i>Transaction History</a></li>
+
+                                <li><a href="{{ route('fontend-withdraw.index') }}"><i class="fas fa-angle-right"></i>Withdraw History</a></li>
+
+                                <li><a href="{{ route('fontend-transfer.index') }}"><i class="fas fa-angle-right"></i>Transfer History</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="{{ route('checkout.index') }}"><i class="fa fa-list"></i>Orders</a></li>
             <li><a href="{{ url('user-message',auth()->user()->id) }}"><i class="fa fa-envelope-square"></i>Message({{ \App\userMessage::where('user_id',auth()->user()->id)->where('status',0)->count() }})</a></li>
             <li><a href="{{ route('contacts.create') }}"><i class="fas fa-envelope"></i>Send Message</a></li>
-            <li><a href="{{ route('fontend-categories.index') }}"><i class="fas fa-envelope"></i>Products</a></li>            <li>
-                <a href="{{ route('logout') }}"
+              <li>
+            <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                    <i class="fa fa-sign-out-alt"></i>Logout
+                    <i class="fas fa-sign-out-alt"></i>Logout
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

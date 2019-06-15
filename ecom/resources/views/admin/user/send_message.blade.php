@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                {{ Form::submit('Save',['class'=>'btn btn-success form-control']) }}
+                {{ Form::submit('Send',['class'=>'btn btn-success form-control']) }}
             </div>
             <div class="col-md-3"></div>
         </div>

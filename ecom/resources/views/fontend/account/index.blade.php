@@ -19,6 +19,7 @@
                                     <th>SL</th>
                                     <th>Tk</th>
                                     <th>Tran Id</th>
+                                    <th>Date</th>
                                     <th>
                                         @foreach($accounts as $account)@endforeach
                                         @if(isset($account) && $account->status==0)
@@ -33,7 +34,7 @@
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $account->amount }}</td>
                                         <td>{{ $account->transaction_id }}</td>
-
+                                        <td>{{ \Carbon\Carbon::parse($account->created_at)->format('M d Y , h:i:s') }}</td>
                                         <td>
                                             @if($account->status==0)
                                                 {{ 'Pending' }}

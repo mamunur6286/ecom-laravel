@@ -23,6 +23,17 @@
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-laptop"></i>
+                <span>Withdraw </span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ route('admin-withdraw.index') }}"><i class="fa fa-angle-right"></i> Pending Transactions</a></li>
+                <li><a href="{{ route('admin-withdraw.create') }}"><i class="fa fa-angle-right"></i>Success Transactions</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-laptop"></i>
                 <span>Orders</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
@@ -31,8 +42,8 @@
                 <li><a href="{{ route('admin-order.create') }}"><i class="fa fa-angle-right"></i>Success Order</a></li>
             </ul>
         </li>
-        <li><a href="{{ route('admin-contact.index') }}"><i class="fa fa-product-hunt"></i>Contact</a></li>
-        <li><a href="{{ route('user-messages.index') }}"><i class="fa fa-product-hunt"></i>User Messages</a></li>
+        <li><a href="{{ route('admin-contact.index') }}"><i class="fa fa-product-hunt"></i>Receive Message</a></li>
+        <li><a href="{{ route('user-contact.index') }}"><i class="fa fa-product-hunt"></i>Send Messages</a></li>
 
         <li><a href="{{ route('sliders.index') }}"><i class="fa fa-product-hunt"></i>Slider</a></li>
         <li><a href="{{ route('setting.create') }}"><i class="fa fa-product-hunt"></i>Setting</a></li>

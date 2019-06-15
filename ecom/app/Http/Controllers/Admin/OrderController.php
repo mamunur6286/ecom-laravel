@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Order;
 use App\OrderDetails;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -93,6 +94,16 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function pendingDestroy($id)
+    {
+        $order=Order::findOrFail($id);
+        $user_id=$order->user_id;
+        $user=User::where('id',$user_id)->first();
+        $amount=$order->subtotal+$user->wallet;
+        $user->update(['wallet'=>$amount]);
+        $order->delete();
+        return redirect('/admin-order/create')->with('success','Your order delete success');
+    }
     public function destroy($id)
     {
         $order=Order::findOrFail($id);

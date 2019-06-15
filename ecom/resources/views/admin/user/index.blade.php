@@ -33,7 +33,7 @@
                             <td>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <a class="btn btn-info" href="{{ route('user-contact.show',$user->id) }}">SMS</a>
+                                        <a class="btn btn-info" href="{{ route('user-contact.show',$user->id) }}">MES.</a>
                                     </div>
                                     <div class="col-md-6">
                                         <form onclick="return confirm('Are You sure to delele?')" id="from1"  action="{{ route('admin-user.destroy',$user->id) }}" method="post">

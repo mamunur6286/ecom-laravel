@@ -29,7 +29,10 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('admin-user', 'Admin\UserController');
     Route::resource('setting', 'Admin\SettingController');
     Route::resource('sliders', 'Admin\SliderController');
-    Route::resource('user-messages', 'Admin\UserMessageController');
+    Route::resource('admin-withdraw', 'Admin\WithdrawController');
+    //Route::resource('user-messages', 'Admin\UserMessageController');
+
+    Route::get('pending/destroy/{id}', 'Admin\OrderController@pendingDestroy');
 
 });
 
@@ -70,3 +73,5 @@ Route::get('user-message/{id}', 'Admin\UserMessageController@messageList')->midd
 Route::get('show/message/{id}', 'Admin\UserMessageController@showMessage')->middleware('user');
 
 Route::resource('fontend-categories', 'Fontend\CategoryController');
+Route::resource('fontend-withdraw', 'Fontend\WithdrawController');
+Route::resource('fontend-transfer', 'Fontend\TransferController');

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Fontend;
 
 use App\User;
+use App\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\userMessage;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Session;
-class UserMessageController extends Controller
+class WithdrawController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,27 +18,10 @@ class UserMessageController extends Controller
      */
     public function index()
     {
-        $messages =userMessage::orderBy('id','desc')->get();
-        return view('admin.message.index',compact('messages'));
+        $withdraws=Withdraw::orderBy('id','desc')->where('user_id',auth()->user()->id)->get();
+        return view('fontend.withdraw.index',compact('withdraws'));
     }
 
-    public function messageList($id)
-    {
-        $messages=User::findOrFail($id)->userM;
-        return view('fontend.contact.user_message',compact('messages'));
-    }
-
-    public function showMessage($id)
-    {
-
-        $msg= userMessage::where('id',$id)->first();
-        $contact= userMessage::findOrFail($id);
-        $contact->status=1;
-        $contact->save();
-
-        $message=userMessage::findOrFail($id)->message;
-        return view('fontend.contact.show',compact('message'));
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +29,8 @@ class UserMessageController extends Controller
      */
     public function create()
     {
-        //
+        return view('fontend.withdraw.create');
+
     }
 
     /**
@@ -57,23 +42,40 @@ class UserMessageController extends Controller
     public function store(Request $request)
     {
         $validator=Validator::make($request->all(),[
-            'message'=>'required',
+            'mobile'=>'required|numeric',
+            'amount'=>'required|numeric',
+            'password'=>'required',
         ]);
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        if (password_verify($request->password,Auth::user()->getAuthPassword() ))
+        {
 
-        $input=$request->all();
 
-        try{
+                $user=User::where('id',Auth::user()->id)->first();
+            $wallet=$user->wallet-$request->amount;
+            if($wallet<0){
+                session::flash('error','Insufficient Balance');
 
-            UserMessage::create($input);
-            session::flash('success','Your message send success');
+                return redirect()->back();
+            }
 
-            return redirect()->back();
-        }catch (Exception $e){
-            session::flash('error','Your message  send failed');
+            $input=$request->all();
+            $input['user_id']= auth()->user()->id;
+            try{
+
+                Withdraw::create($input);
+                session::flash('success','You have successfully withdrawn');
+
+                return redirect()->back();
+            }catch (Exception $e){
+                session::flash('error','Your deposit Failed');
+                return redirect()->back();
+            }
+        }else{
+            session::flash('error','Your password incorrect');
             return redirect()->back();
         }
     }
@@ -86,7 +88,7 @@ class UserMessageController extends Controller
      */
     public function show($id)
     {
-        return view('admin.user.send_message',compact('id',$id));
+        //
     }
 
     /**
@@ -97,10 +99,7 @@ class UserMessageController extends Controller
      */
     public function edit($id)
     {
-        $msg= userMessage::where('id',$id)->first();
-
-
-        return view('admin.message.view',compact('msg'));
+        //
     }
 
     /**
@@ -123,9 +122,8 @@ class UserMessageController extends Controller
      */
     public function destroy($id)
     {
-        $contact = userMessage::findOrFail($id);
-        $contact->delete();
-        session()->flash('success', 'Your message  delete success.');
-        return redirect()->back();
+        $account=Withdraw::findOrFail($id);
+        $account->delete();
+        return redirect('/fontend-transfer')->with('success','Your history  delete success.');
     }
 }

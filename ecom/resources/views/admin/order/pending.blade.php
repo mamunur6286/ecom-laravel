@@ -43,11 +43,7 @@
                                         <a class="btn btn-info btn-sm" href="{{ url('order/success',$Order->id) }}"><i class="fa fa-arrow-up"></i></a>
                                     </div>
                                     <div class="col-md-6">
-                                        <form id="from1" action="{{ route('admin-order.destroy',$Order->id) }}" method="post">
-                                            {{ csrf_field() }}
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button  class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
-                                        </form>
+                                        <a class="btn btn-danger btn-sm" href="{{ url('pending/destroy',$Order->id) }}"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </div>
                             </td>
