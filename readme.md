@@ -45,3 +45,20 @@ This project is an **E-Commerce Application** built using Laravel 5.8. It provid
 1. **Clone the Repository**  
    ```bash
    git clone https://github.com/mamunur6286/ecom-laravel.git
+   ## Installation
+
+### Navigate to Project Folder  
+```bash
+cd ecommerce-laravel
+composer install
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ecommerce
+DB_USERNAME=root
+DB_PASSWORD=
+
+php artisan serve
+
+
